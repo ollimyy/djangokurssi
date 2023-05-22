@@ -22,8 +22,11 @@ $ echo django > requirements.txt
 $ pip install -r requirements.txt
 ```
 
-Varmistin, että django on asennettu komennolla
-`$ django-admin --version 4.2.1`.
+Varmistin, että django on asennettu komennolla:
+```
+$ django-admin --version 
+4.2.1
+```
 
 ## Django projektin luonti ja testaus
 Loin uuden django-projektin nimeltä ollico: `$ django-admin startproject ollico`
@@ -33,5 +36,73 @@ $ cd ollico
 $ ./manage.py runserver
 ```
 ![Django-oletussivu](./django_install_test.png)
+
+## Admin käyttöliittymän lisäys
+Päivitin ensin tietokannan komennoilla:
+```
+$ ./manage.py makemigrations
+$ ./manage.py migrate
+```
+
+Lisäsin uuden käyttäjän: `$ ./manage.py createsuperuser`
+
+Nyt admin käyttöliittymä toimii osoitteessa /admin.
+
+## Luodaan uusi sovellus projektiin ja sinne tietokantaan uusi taulu
+
+Loin uuden sovelluksen komennolla: `$ ./manage.py startapp bookstore`
+Sovellus pitää lisätä settings\.py -tiedostoon
+```
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'bookstore',
+]
+```
+
+Loin uuden luokan bookstoren models.py tiedostoon
+```
+from django.db import models
+
+Class Book(models.Model):
+    title = models.CharField(max_length=300)
+
+     def __str__(self):
+        return self.title
+```
+
+Päivitin tietokannan:
+```
+$ ./manage.py makemigrations
+$ ./manage.py migrate
+```
+
+Rekisteröin uuden mallin bookstoren admin.py tiedostoon
+```
+from django.contrib import admin
+from . import models 
+
+admin.site.register(models.Book)
+```
+
+Käynnistin palvelimen uudelleen
+`$ /manage.py runserver`
+
+Nyt admin käyttöliittymässä näkyy bookstore sekä malli book.
+![Django-oletussivu](./django_admin.png)
+
+## Lisätään uusi kirja Djangon admin-käyttöliittymällä
+
+Valitsin Djangon admin-sivulla "Books" kentästä "Add". Lisäsin seuravalla sivulla kirjalle otsikon ja painoin save. Uusi kirja tallentui tietokantaan
+
+![Django-oletussivu](./django_save.png)
+
+
+
+
 
 
