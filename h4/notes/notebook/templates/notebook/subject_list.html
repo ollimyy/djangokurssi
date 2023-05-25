@@ -1,0 +1,13 @@
+{% extends "notebook/base.html" %}
+
+{% block "content" %}
+	<h2>Subjects:</h2>
+	<a href="/subject/new"><button>Add subject</button></a>
+	<ul>
+    {% for object in object_list %}
+		<li>
+            <a href="/subject/{{ object.pk }}">{{ object }}</a>
+        </li>
+	{% endfor %}
+	</ul>
+{% endblock "content" %}

@@ -1,0 +1,11 @@
+{% extends "notebook/base.html" %}
+
+{% block "content" %}
+        <p>Delete subject <b>{{ object.name }}</b> and <b>all notes in this subject</b>? This cannot be undone.</p>
+
+        <form method=post>
+                {% csrf_token %}
+                <input type=submit value="Delete">
+        </form>
+        <p><a href="/subjects">Cancel</a></p>
+{% endblock "content" %}

@@ -1,0 +1,13 @@
+{% extends "recipes/base.html" %}
+
+{% block "content" %}
+	<h2>Authors:</h2>
+	<a href="/author/new"><button>Add author</button></a>
+	<ul>
+    {% for object in object_list %}
+		<li>
+            <a href="/author/{{ object.pk }}">{{ object }}</a>
+        </li>
+	{% endfor %}
+	</ul>
+{% endblock "content" %}

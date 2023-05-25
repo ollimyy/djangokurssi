@@ -1,0 +1,15 @@
+{% extends "notebook/base.html" %}
+
+{% block "content" %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="/subjects">Cancel</a>
+        <input type="submit" value="Save">
+    
+    </form>
+
+        {% if object %}
+            <p><a href="/subject/{{ object.pk }}/delete">Delete</a></p>
+        {% endif %}
+{% endblock "content" %}

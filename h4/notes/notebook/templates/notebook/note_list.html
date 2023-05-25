@@ -1,0 +1,13 @@
+{% extends "notebook/base.html" %}
+
+{% block "content" %}
+	<h2>Notes:</h2>
+	<a href="/note/new"><button>Add note</button></a>
+	<ul>
+    {% for object in object_list %}
+		<li>
+            {{ object.creation_date}}: <a href="/note/{{ object.pk }}">{{ object }}</a> ({{ object.subject}})
+        </li>
+	{% endfor %}
+	</ul>
+{% endblock "content" %}
